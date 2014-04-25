@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "80a65a76e22d502a4025ede36b45cc8b",
+    "hash": "63fe2e5e8a9c9647f96dae94010153f3",
     "packages": [
         {
             "name": "bjyoungblood/bjy-authorize",
@@ -965,16 +965,16 @@
         },
         {
             "name": "socalnick/scn-social-auth-doctrine-orm",
-            "version": "dev-master",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SocalNick/ScnSocialAuthDoctrineORM.git",
-                "reference": "9ff1bf51036293fd046efc0f9dc6da97b22f54e6"
+                "reference": "af24ccb8fdf0ff237d076c9af380b38902a17a09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocalNick/ScnSocialAuthDoctrineORM/zipball/9ff1bf51036293fd046efc0f9dc6da97b22f54e6",
-                "reference": "9ff1bf51036293fd046efc0f9dc6da97b22f54e6",
+                "url": "https://api.github.com/repos/SocalNick/ScnSocialAuthDoctrineORM/zipball/af24ccb8fdf0ff237d076c9af380b38902a17a09",
+                "reference": "af24ccb8fdf0ff237d076c9af380b38902a17a09",
                 "shasum": ""
             },
             "require": {
@@ -993,9 +993,6 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
             "authors": [
                 {
                     "name": "Nicholas Calugar",
@@ -1021,7 +1018,7 @@
                 "zf2",
                 "zfc"
             ],
-            "time": "2014-03-09 00:09:49"
+            "time": "2013-03-11 21:00:12"
         },
         {
             "name": "symfony/console",
@@ -2538,7 +2535,6 @@
     "stability-flags": {
         "doctrine/doctrine-module": 20,
         "hybridauth/hybridauth": 20,
-        "socalnick/scn-social-auth-doctrine-orm": 20,
         "satooshi/php-coveralls": 20
     },
     "platform": {

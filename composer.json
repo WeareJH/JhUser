@@ -21,7 +21,7 @@
         "zf-commons/zfc-admin": "0.1.*",
         "zf-commons/zfc-user-doctrine-orm": "0.1.*",
         "socalnick/scn-social-auth": "1.*",
-        "socalnick/scn-social-auth-doctrine-orm": "dev-master"
+        "socalnick/scn-social-auth-doctrine-orm": "1.3.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*",
