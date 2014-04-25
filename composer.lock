@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1243dc9350fda57dbcf8d895d05a226b",
+    "hash": "80a65a76e22d502a4025ede36b45cc8b",
     "packages": [
         {
             "name": "bjyoungblood/bjy-authorize",
@@ -2537,7 +2537,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "doctrine/doctrine-module": 20,
-        "zf-commons/zfc-user": 20,
         "hybridauth/hybridauth": 20,
         "socalnick/scn-social-auth-doctrine-orm": 20,
         "satooshi/php-coveralls": 20

@@ -14,7 +14,7 @@
         "zendframework/zendframework": "~2.3.0",
         "doctrine/doctrine-module": "dev-master as 0.8.0",
         "doctrine/doctrine-orm-module": "0.*",
-        "zf-commons/zfc-user": "dev-master",
+        "zf-commons/zfc-user": "0.1.*",
         "hybridauth/hybridauth": "dev-master",
         "bjyoungblood/bjy-authorize": "1.4.*",
         "doctrine/data-fixtures": "1.0.*",
