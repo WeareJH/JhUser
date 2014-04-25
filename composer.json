@@ -1,0 +1,29 @@
+{
+    "name": "wearejh/jh-user",
+    "description": "A Base ZF2 user module for the Hub & other JH ZF2 modules.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aydin Hassan",
+            "email": "aydin@hotmail.co.uk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4",
+        "zendframework/zendframework": "~2.3.0",
+        "doctrine/doctrine-module": "dev-master as 0.8.0",
+        "doctrine/doctrine-orm-module": "0.*",
+        "zf-commons/zfc-user": "dev-master",
+        "bjyoungblood/bjy-authorize": "1.4.*",
+        "doctrine/data-fixtures": "1.0.*",
+        "zf-commons/zfc-admin": "0.1.*",
+        "zf-commons/zfc-user-doctrine-orm": "0.1.*",
+        "socalnick/scn-social-auth": "1.*",
+        "socalnick/scn-social-auth-doctrine-orm": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*",
+        "satooshi/php-coveralls": "dev-master"
+    }
+}
