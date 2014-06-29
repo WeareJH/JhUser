@@ -3,7 +3,7 @@
 namespace JhUserTest\Controller;
 
 use JhUser\Entity\User;
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 use Zend\Console\Request;
 use Zend\Http\Request as HttpRequest;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
@@ -52,7 +52,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $this->assertMatchedRouteName('set-role');
 
         $this->assertCount(1, $this->user->getRoles());
-        $this->assertSame($this->user->getRoles()->first(), $this->role);
+        $this->assertSame($this->user->getRoles()[0], $this->role);
     }
 
     public function testUsersRoleCanBeModified()
@@ -61,10 +61,9 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $roleId = 'admin';
 
         $this->configureMocks($email, $roleId);
-        $role = new Role;
-        $role->setRoleId('user');
+        $role = new HierarchicalRole;
+        $role->setName('user');
         $this->user->addRole($role);
-
 
         $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
 
@@ -76,7 +75,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $this->assertMatchedRouteName('set-role');
 
         $this->assertCount(1, $this->user->getRoles());
-        $this->assertSame($this->user->getRoles()->first(), $this->role);
+        $this->assertSame($this->user->getRoles()[1], $this->role);
     }
 
     public function configureMocks($userEmail, $roleId)
@@ -94,8 +93,8 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
             ->with($userEmail)
             ->will($this->returnValue($this->user));
 
-        $this->role = new Role();
-        $this->role->setRoleId($roleId);
+        $this->role = new HierarchicalRole();
+        $this->role->setName($roleId);
 
         $roleRepoMock
             ->expects($this->once())

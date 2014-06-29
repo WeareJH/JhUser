@@ -3,17 +3,17 @@
 namespace JhUser\Repository;
 
 /**
- * Interface RoleRepositoryInterface
+ * Interface PermissionRepositoryInterface
  * @package JhUser\Repository
  * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
-interface RoleRepositoryInterface
+interface PermissionRepositoryInterface
 {
     /**
-     * @param string $roleId
+     * @param string $name
      * @return \Rbac\Role\RoleInterface|null
      */
-    public function findByRoleId($roleId);
+    public function findByName($name);
 
     /**
      * @param array $criteria

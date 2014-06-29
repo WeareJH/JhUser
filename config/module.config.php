@@ -67,8 +67,9 @@ return array(
     //service manager
     'service_manager' => array(
         'factories' => array(
-            'JhUser\Repository\RoleRepository' => 'JhUser\Repository\Factory\RoleRepositoryFactory',
-            'JhUser\Repository\UserRepository' => 'JhUser\Repository\Factory\UserRepositoryFactory',
+            'JhUser\Repository\RoleRepository'          => 'JhUser\Repository\Factory\RoleRepositoryFactory',
+            'JhUser\Repository\UserRepository'          => 'JhUser\Repository\Factory\UserRepositoryFactory',
+            'JhUser\Repository\PermissionRepository'    => 'JhUser\Repository\Factory\PermissionRepositoryFactory',
         ),
         'aliases' => array(
             'JhUser\ObjectManager'             => 'Doctrine\ORM\EntityManager',

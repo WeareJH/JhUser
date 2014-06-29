@@ -2,11 +2,13 @@
 
 namespace JhUser\Entity;
 
-use BjyAuthorize\Provider\Role\ProviderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use ZfcRbac\Identity\IdentityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use ZfcUser\Entity\UserInterface;
 use JsonSerializable;
+use Doctrine\Common\Collections\Collection;
+use Rbac\Role\RoleInterface;
 
 /**
  * Class User
@@ -17,7 +19,7 @@ use JsonSerializable;
  * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface, ProviderInterface, JsonSerializable
+class User implements UserInterface, IdentityInterface, JsonSerializable
 {
     /**
      * @var int
@@ -71,7 +73,8 @@ class User implements UserInterface, ProviderInterface, JsonSerializable
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @ORM\ManyToMany(targetEntity="JhUser\Entity\Role")
+     *
+     * @ORM\ManyToMany(targetEntity="JhUser\Entity\HierarchicalRole")
      * @ORM\JoinTable(name="user_role",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
@@ -146,7 +149,11 @@ class User implements UserInterface, ProviderInterface, JsonSerializable
      */
     public function getDisplayName()
     {
-        return $this->displayName;
+        if (!$this->displayName) {
+            return null;
+        } else {
+            return ucwords($this->displayName);
+        }
     }
 
     /**
@@ -218,17 +225,42 @@ class User implements UserInterface, ProviderInterface, JsonSerializable
      */
     public function getRoles()
     {
-        return $this->roles;
+        return $this->roles->toArray();
     }
 
     /**
-     * @param Role $role
-     * @return \JhUser\Entity\User
+     * Set the list of roles
+     * @param Collection $roles
      */
-    public function addRole(Role $role)
+    public function setRoles(Collection $roles)
+    {
+        $this->roles->clear();
+        foreach ($roles as $role) {
+            $this->roles[] = $role;
+        }
+    }
+
+    /**
+     * Add one role to roles list
+     * @param \Rbac\Role\RoleInterface $role
+     */
+    public function addRole(RoleInterface $role)
     {
         $this->roles[] = $role;
-        return $this;
+    }
+
+    /**
+     * Remove a particular role from a user
+     *
+     * @param RoleInterface $removeRole
+     */
+    public function removeRole(RoleInterface $removeRole)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->getName() === $removeRole->getName()) {
+                $this->roles->removeElement($removeRole);
+            }
+        }
     }
 
     /**

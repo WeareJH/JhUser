@@ -19,7 +19,7 @@ class RoleRepositoryFactoryTest extends \PHPUnit_Framework_TestCase
         $objectManager
             ->expects($this->any())
             ->method('getRepository')
-            ->with($this->equalTo('JhUser\Entity\Role'))
+            ->with($this->equalTo('JhUser\Entity\HierarchicalRole'))
             ->will($this->returnValue($objectRepository));
         $serviceLocator
             ->expects($this->any())

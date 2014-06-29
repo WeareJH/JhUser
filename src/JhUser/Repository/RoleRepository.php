@@ -49,7 +49,7 @@ class RoleRepository implements RoleRepositoryInterface, ObjectRepository
      */
     public function findByRoleId($roleId)
     {
-        return $this->roleRepository->findOneBy(array('roleId' => $roleId));
+        return $this->roleRepository->findOneBy(array('name' => $roleId));
     }
 
     /**

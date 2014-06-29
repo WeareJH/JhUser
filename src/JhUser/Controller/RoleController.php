@@ -2,6 +2,8 @@
 
 namespace JhUser\Controller;
 
+use JhUser\Entity\HierarchicalRole;
+use JhUser\Entity\Permission;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Console\Request as ConsoleRequest;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -72,7 +74,7 @@ class RoleController extends AbstractActionController
         }
 
         foreach ($user->getRoles() as $role) {
-            $user->getRoles()->removeElement($role);
+            $user->removeRole($role);
         }
 
         $user->addRole($newRole);

@@ -2,7 +2,7 @@
 
 namespace JhUserTest;
 
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 use JhUser\Entity\User;
 use Zend\ServiceManager\ServiceManager;
 use JhUser\Module;
@@ -85,23 +85,20 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
         $serviceLocator     = new ServiceManager();
         $serviceLocator->setService('JhUser\ObjectManager', $mockObjectManager);
+
         $this->application->expects($this->any())
             ->method('getServiceManager')
             ->will($this->returnValue($serviceLocator));
 
-        $role = new Role();
+        $role = new HierarchicalRole();
         $roleRepository = $this->getMock('JhUser\Repository\RoleRepositoryInterface');
         $roleRepository
             ->expects($this->once())
-            ->method('findOneBy')
-            ->with(['roleId' => 'user'])
+            ->method('findByRoleId')
+            ->with('user')
             ->will($this->returnValue($role));
 
-        $mockObjectManager
-            ->expects($this->once())
-            ->method('getRepository')
-            ->with('JhUser\Entity\Role')
-            ->will($this->returnValue($roleRepository));
+        $serviceLocator->setService('JhUser\Repository\RoleRepository', $roleRepository);
 
         $mockObjectManager
             ->expects($this->once())

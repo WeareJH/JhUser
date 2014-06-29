@@ -47,7 +47,7 @@ class Module implements
 
         $user       = $e->getParam('user');
         //TODO: Pull default role from config
-        $userRole   = $entityManager->getRepository('JhUser\Entity\Role')->findOneBy(array('roleId' => 'user'));
+        $userRole   = $sm->get('JhUser\Repository\RoleRepository')->findByRoleId('user');
 
         $user->addRole($userRole);
         $entityManager->flush();

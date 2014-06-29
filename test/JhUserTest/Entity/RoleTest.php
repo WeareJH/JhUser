@@ -2,7 +2,7 @@
 
 namespace JhUserTest\Entity;
 
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 
 /**
  * Class RoleTest
@@ -22,7 +22,7 @@ class RoleTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->role = new Role;
+        $this->role = new HierarchicalRole;
     }
 
     /**
@@ -49,9 +49,7 @@ class RoleTest extends \PHPUnit_Framework_TestCase
     public function setterGetterProvider()
     {
         return array(
-            array('id'          , 1),
-            array('roleId'      , 'admin'),
-            array('parent'      , new Role),
+            array('name', 'admin'),
         );
     }
 }

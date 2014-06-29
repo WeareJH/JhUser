@@ -2,7 +2,7 @@
 
 namespace JhUserTest\Entity;
 
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 use JhUser\Entity\User;
 
 /**
@@ -59,8 +59,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
             array('createdAt'   , new \DateTime),
             array('createdAt'   , new \DateTime),
             array('password'    , 'password'),
-
-
         );
     }
 
@@ -68,8 +66,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $user = new User;
 
-        $role1 = new Role;
-        $role2 = new Role;
+        $role1 = new HierarchicalRole;
+        $role2 = new HierarchicalRole;
 
         $user->addRole($role1);
         $this->assertContains($role1, $user->getRoles());
