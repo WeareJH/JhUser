@@ -15,6 +15,12 @@ return [
             ],
         ],
     ],
+
+    'service_manager' => [
+        'aliases' => [
+            'Zend\Authentication\AuthenticationService' => 'zfcuser_auth_service'
+        ]
+    ],
  
     'zfcuser' => [
         // telling ZfcUser to use our own class
