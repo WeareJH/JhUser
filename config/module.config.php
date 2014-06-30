@@ -27,15 +27,33 @@ return [
         'enable_username'           => true,
     ],
 
-    'bjyauthorize' => [
-        // Using the authentication identity provider, which basically reads the roles from the auth service's identity
-        'identity_provider' => 'BjyAuthorize\Provider\Identity\AuthenticationIdentityProvider',
+    'zfc_rbac' => [
+        'redirect_strategy' => [
+            //don't redirect if already logged in
+            'redirect_when_connected'        => false,
+            'redirect_to_route_connected'    => 'home',
+            'redirect_to_route_disconnected' => 'zfcuser/login',
+            'append_previous_uri'            => true,
+            'previous_uri_query_key'         => 'redirectTo',
+        ],
 
-        'role_providers'        => [
-            // using an object repository (entity repository) to load all roles into our ACL
-            'BjyAuthorize\Provider\Role\ObjectRepositoryProvider' => [
-                'object_manager'    => 'doctrine.entitymanager.orm_default',
-                'role_entity_class' => 'JhUser\Entity\Role',
+        'guards' => [
+            'ZfcRbac\Guard\RouteGuard' => [
+                //ZFCUser Routes
+                'zfcuser/login'                 => ['guest'],
+                'zfcuser/register'              => ['guest'],
+                'zfcuser*'                      => ['user'],
+
+                //home
+                'home'                          => ['user'],
+            ]
+        ],
+
+        'role_provider' => [
+            'ZfcRbac\Role\ObjectRepositoryRoleProvider' => [
+                'object_manager'     => 'doctrine.entitymanager.orm_default',
+                'class_name'         => 'JhUser\Entity\HierarchicalRole',
+                'role_name_property' => 'name', // Name to show
             ],
         ],
     ],
