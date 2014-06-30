@@ -82,8 +82,7 @@ abstract class ServiceManagerFactory
         // @todo move to own factory class/add to merged configuration? Create a test module?
         $serviceManager->setFactory(
             'Doctrine\Common\DataFixtures\Executor\AbstractExecutor',
-            function(ServiceLocatorInterface $sl)
-            {
+            function (ServiceLocatorInterface $sl) {
                 /* @var $em \Doctrine\ORM\EntityManager */
                 $em = $sl->get('Doctrine\ORM\EntityManager');
                 $schemaTool = new SchemaTool($em);

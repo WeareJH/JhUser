@@ -4,40 +4,35 @@ namespace JhUserTest\Fixture;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use JhUser\Entity\User;
+use JhUser\Entity\Permission;
 
 /**
- * Class SingleUser
+ * Class SinglePermission
  * @package JhUserTest\Fixture
  * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
-class SingleUser extends AbstractFixture
+class SinglePermission extends AbstractFixture
 {
     /**
-     * @var User
+     * @var Permission
      */
-    protected $user;
+    protected $permission;
 
     /**
      * {inheritDoc}
      */
     public function load(ObjectManager $manager)
     {
-        $this->user = new User();
-
-        $this->user
-            ->setEmail('aydin@hotmail.co.uk')
-            ->setPassword('password');
-
-        $manager->persist($this->user);
+        $this->permission = new Permission('delete');
+        $manager->persist($this->permission);
         $manager->flush();
     }
 
     /**
-     * @return User
+     * @return Permission
      */
-    public function getUser()
+    public function getPermission()
     {
-        return $this->user;
+        return $this->permission;
     }
 }

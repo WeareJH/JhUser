@@ -26,16 +26,16 @@ class MultipleUser extends AbstractFixture
 
         $data = [
             [
-                'email'       => 'aydin@hotmail.co.uk',
+                'email'       => 'aydin@wearejh.com',
                 'password'    => 'p$ssw0rd'
             ],
             [
-                'email'       => 'aydin@wearejh.com',
+                'email'       => 'aydin@hotmail.co.uk',
                 'password'    => 'p$ssw0rd'
             ],
         ];
 
-        foreach($data as $userData) {
+        foreach ($data as $userData) {
             $user = new User;
             $user->setEmail($userData['email'])
                 ->setPassword($userData['password']);
@@ -54,4 +54,4 @@ class MultipleUser extends AbstractFixture
     {
         return $this->users;
     }
-} 
+}

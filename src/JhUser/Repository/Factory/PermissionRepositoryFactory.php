@@ -2,25 +2,25 @@
 
 namespace JhUser\Repository\Factory;
 
-use JhUser\Repository\UserRepository;
+use JhUser\Repository\PermissionRepository;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Class UserRepositoryFactory
+ * Class PermissionRepositoryFactory
  * @package JhUser\Repository\Factory
  * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
-class UserRepositoryFactory implements FactoryInterface
+class PermissionRepositoryFactory implements FactoryInterface
 {
     /**
      * @param ServiceLocatorInterface $serviceLocator
-     * @return UserRepository
+     * @return RoleRepository
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new UserRepository(
-            $serviceLocator->get('JhUser\ObjectManager')->getRepository('JhUser\Entity\User')
+        return new PermissionRepository(
+            $serviceLocator->get('JhUser\ObjectManager')->getRepository('JhUser\Entity\Permission')
         );
     }
 }

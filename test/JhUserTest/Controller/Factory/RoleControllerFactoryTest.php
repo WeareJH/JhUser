@@ -8,18 +8,18 @@ use Zend\Mvc\Controller\PluginManager;
 /**
  * Class RoleControllerFactoryTest
  * @package JhTimeTest\Controller\Factory
- * @author Aydin Hassan <aydin@wearejh.com>
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
 class RoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testFactoryProcessesWithoutErrors()
     {
 
-        $services = array(
+        $services = [
             'JhUser\ObjectManager'                  => $this->getMock('Doctrine\Common\Persistence\ObjectManager'),
             'JhUser\Repository\UserRepository'      => $this->getMock('JhUser\Repository\UserRepositoryInterface'),
             'JhUser\Repository\RoleRepository'      => $this->getMock('JhUser\Repository\RoleRepositoryInterface'),
-        );
+        ];
 
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator
@@ -39,4 +39,4 @@ class RoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new RoleControllerFactory();
         $this->assertInstanceOf('JhUser\Controller\RoleController', $factory->createService($controllerPluginManager));
     }
-} 
+}

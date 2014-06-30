@@ -1,22 +1,22 @@
 <?php
-return array(
-    'doctrine' => array(
-        'driver' => array(
+return [
+    'doctrine' => [
+        'driver' => [
             // overriding zfc-user-doctrine-orm's config
-            'zfcuser_entity' => array(
+            'zfcuser_entity' => [
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'paths' => __DIR__ . '/../src/JhUser/Entity',
-            ),
+            ],
  
-            'orm_default' => array(
-                'drivers' => array(
+            'orm_default' => [
+                'drivers' => [
                     'JhUser\Entity' => 'zfcuser_entity',
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
  
-    'zfcuser' => array(
+    'zfcuser' => [
         // telling ZfcUser to use our own class
         'user_entity_class'         => 'JhUser\Entity\User',
         // telling ZfcUserDoctrineORM to skip the entities it defines
@@ -25,53 +25,72 @@ return array(
         'enable_registration'       => true,
         //enable username
         'enable_username'           => true,
-    ),
+    ],
 
-    'bjyauthorize' => array(
-        // Using the authentication identity provider, which basically reads the roles from the auth service's identity
-        'identity_provider' => 'BjyAuthorize\Provider\Identity\AuthenticationIdentityProvider',
+    'zfc_rbac' => [
+        'redirect_strategy' => [
+            //don't redirect if already logged in
+            'redirect_when_connected'        => false,
+            'redirect_to_route_connected'    => 'home',
+            'redirect_to_route_disconnected' => 'zfcuser/login',
+            'append_previous_uri'            => true,
+            'previous_uri_query_key'         => 'redirectTo',
+        ],
 
-        'role_providers'        => array(
-            // using an object repository (entity repository) to load all roles into our ACL
-            'BjyAuthorize\Provider\Role\ObjectRepositoryProvider' => array(
-                'object_manager'    => 'doctrine.entitymanager.orm_default',
-                'role_entity_class' => 'JhUser\Entity\Role',
-            ),
-        ),
-    ),
+        'guards' => [
+            'ZfcRbac\Guard\RouteGuard' => [
+                //ZFCUser Routes
+                'zfcuser/login'                 => ['guest'],
+                'zfcuser/register'              => ['guest'],
+                'zfcuser*'                      => ['user'],
+
+                //home
+                'home'                          => ['user'],
+            ]
+        ],
+
+        'role_provider' => [
+            'ZfcRbac\Role\ObjectRepositoryRoleProvider' => [
+                'object_manager'     => 'doctrine.entitymanager.orm_default',
+                'class_name'         => 'JhUser\Entity\HierarchicalRole',
+                'role_name_property' => 'name', // Name to show
+            ],
+        ],
+    ],
 
     //console routes
-    'console' => array(
-        'router' => array(
-            'routes' => array(
-                'set-role' => array(
-                    'options'   => array(
+    'console' => [
+        'router' => [
+            'routes' => [
+                'set-role' => [
+                    'options'   => [
                         'route'     => 'set role <userEmail> <role>',
-                        'defaults'  => array(
+                        'defaults'  => [
                             'controller' => 'JhUser\Controller\Role',
                             'action'     => 'set-role'
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
 
     //controllers
-    'controllers' => array(
-        'factories' => array(
+    'controllers' => [
+        'factories' => [
             'JhUser\Controller\Role' => 'JhUser\Controller\Factory\RoleControllerFactory',
-        ),
-    ),
+        ],
+    ],
 
     //service manager
-    'service_manager' => array(
-        'factories' => array(
-            'JhUser\Repository\RoleRepository' => 'JhUser\Repository\Factory\RoleRepositoryFactory',
-            'JhUser\Repository\UserRepository' => 'JhUser\Repository\Factory\UserRepositoryFactory',
-        ),
-        'aliases' => array(
+    'service_manager' => [
+        'factories' => [
+            'JhUser\Repository\RoleRepository'          => 'JhUser\Repository\Factory\RoleRepositoryFactory',
+            'JhUser\Repository\UserRepository'          => 'JhUser\Repository\Factory\UserRepositoryFactory',
+            'JhUser\Repository\PermissionRepository'    => 'JhUser\Repository\Factory\PermissionRepositoryFactory',
+        ],
+        'aliases' => [
             'JhUser\ObjectManager'             => 'Doctrine\ORM\EntityManager',
-        ),
-    ),
-);
+        ],
+    ],
+];

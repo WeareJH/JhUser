@@ -4,7 +4,7 @@ namespace JhUserTest\Fixture;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 
 /**
  * Class SingleRole
@@ -23,11 +23,10 @@ class SingleRole extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        $this->role = new Role();
+        $this->role = new HierarchicalRole();
 
         $this->role
-            ->setId(1)
-            ->setRoleId('admin');
+            ->setName('admin');
 
         $manager->persist($this->role);
         $manager->flush();
@@ -40,4 +39,4 @@ class SingleRole extends AbstractFixture
     {
         return $this->role;
     }
-} 
+}

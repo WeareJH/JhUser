@@ -34,7 +34,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testGetAllUsers()
     {
         $user = new SingleUser();
-        $this->fixtureExectutor->execute(array($user));
+        $this->fixtureExectutor->execute([$user]);
 
         $this->assertCount(1, $this->repository->findAll());
     }
@@ -42,7 +42,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testGetAllUsersWithPagination()
     {
         $user = new SingleUser();
-        $this->fixtureExectutor->execute(array($user));
+        $this->fixtureExectutor->execute([$user]);
 
         $this->assertCount(1, $this->repository->findAll(true));
     }
@@ -55,7 +55,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testFindOneByEmailReturnsUserIfExists()
     {
         $user = new SingleUser();
-        $this->fixtureExectutor->execute(array($user));
+        $this->fixtureExectutor->execute([$user]);
         $result = $this->repository->findOneByEmail($user->getUser()->getEmail());
         $this->assertInstanceOf('JhUser\Entity\User', $result);
         $this->assertSame($user->getUser()->getEmail(), $result->getEmail());
@@ -65,14 +65,14 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFindOneByReturnsNullIfNotExists()
     {
-        $this->assertNull($this->repository->findOneBy(array("email" => "aydin@hotmail.co.uk")));
+        $this->assertNull($this->repository->findOneBy(["email" => "aydin@hotmail.co.uk"]));
     }
 
     public function testFindOneByReturnsUserIfExists()
     {
         $user = new SingleUser();
-        $this->fixtureExectutor->execute(array($user));
-        $result = $this->repository->findOneBy(array("email" => "aydin@hotmail.co.uk"));
+        $this->fixtureExectutor->execute([$user]);
+        $result = $this->repository->findOneBy(["email" => "aydin@hotmail.co.uk"]);
         $this->assertInstanceOf('JhUser\Entity\User', $result);
         $this->assertSame($user->getUser()->getEmail(), $result->getEmail());
         $this->assertSame($user->getUser()->getPassword(), $result->getPassword());
@@ -81,23 +81,23 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFindByReturnsEmptyIfNonExist()
     {
-        $this->assertEmpty($this->repository->findBy(array('email' => 'aydin@hotmail.co.uk')));
+        $this->assertEmpty($this->repository->findBy(['email' => 'aydin@hotmail.co.uk']));
     }
 
     public function testFindByReturnsCollectionIfExist()
     {
-        $this->assertEmpty($this->repository->findBy(array('email' => 'aydin@hotmail.co.uk')));
+        $this->assertEmpty($this->repository->findBy(['email' => 'aydin@hotmail.co.uk']));
 
         $users = new MultipleUser();
-        $this->fixtureExectutor->execute(array($users));
-        $result = $this->repository->findBy(array("password" => 'p$ssw0rd'));
+        $this->fixtureExectutor->execute([$users]);
+        $result = $this->repository->findBy(["password" => 'p$ssw0rd']);
         $this->assertSame(count($users->getUsers()), count($result));
     }
 
     public function testFindById()
     {
         $user = new SingleUser();
-        $this->fixtureExectutor->execute(array($user));
+        $this->fixtureExectutor->execute([$user]);
         $result = $this->repository->find($user->getUser()->getId());
         $this->assertInstanceOf('JhUser\Entity\User', $result);
         $this->assertSame($user->getUser()->getEmail(), $result->getEmail());

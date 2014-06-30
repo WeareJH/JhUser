@@ -2,12 +2,13 @@
 
 namespace JhUserTest\Entity;
 
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
+use JhUser\Entity\Permission;
 
 /**
  * Class RoleTest
  * @package JhUserTest\Entity
- * @author Aydin Hassan <aydin@wearejh.com>
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
 class RoleTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +23,7 @@ class RoleTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->role = new Role;
+        $this->role = new HierarchicalRole;
     }
 
     /**
@@ -48,10 +49,40 @@ class RoleTest extends \PHPUnit_Framework_TestCase
      */
     public function setterGetterProvider()
     {
-        return array(
-            array('id'          , 1),
-            array('roleId'      , 'admin'),
-            array('parent'      , new Role),
-        );
+        return [
+            ['name', 'admin'],
+        ];
+    }
+
+    public function testHasChildrenReturnsFalseWhenNoChildren()
+    {
+        $this->assertFalse($this->role->hasChildren());
+    }
+
+    public function testHasChildrenReturnsTrueWhenHasChildren()
+    {
+        $this->role->addChild(new HierarchicalRole());
+        $this->assertTrue($this->role->hasChildren());
+    }
+
+    public function testAddPermissionToRole()
+    {
+        $permission = new Permission("test");
+
+        $refObject   = new \ReflectionObject($this->role);
+        $refProperty = $refObject->getProperty('permissions');
+        $refProperty->setAccessible(true);
+
+        $this->assertEmpty($refProperty->getValue($this->role));
+        $this->role->addPermission($permission);
+        $this->assertCount(1, $refProperty->getValue($this->role));
+        $this->assertSame($permission, $refProperty->getValue($this->role)[ (string) $permission]);
+    }
+
+    public function testHasPermission()
+    {
+        $this->assertFalse($this->role->hasPermission('not-here'));
+        $this->role->addPermission(new Permission('delete'));
+        $this->assertTrue($this->role->hasPermission('delete'));
     }
 }

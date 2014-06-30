@@ -4,7 +4,7 @@ namespace JhUserTest\Fixture;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 
 /**
  * Class MultipleRole
@@ -29,16 +29,16 @@ class MultipleRole extends AbstractFixture
     public function load(ObjectManager $manager)
     {
 
-        $parent = new Role();
-        $parent->setRoleId('user');
+        $parent = new HierarchicalRole();
+        $parent->setName('user');
         $manager->persist($parent);
         $this->parent = $parent;
 
-        foreach(array('admin', 'manager') as $roleData) {
-            $role = new Role;
-            $role->setRoleId($roleData)
-                ->setParent($parent);
+        foreach (['admin', 'manager'] as $roleData) {
+            $role = new HierarchicalRole;
+            $role->setName($roleData);
 
+            $parent->addChild($role);
             $manager->persist($role);
             $this->roles[] = $role;
         }
@@ -61,4 +61,4 @@ class MultipleRole extends AbstractFixture
     {
         return $this->parent;
     }
-} 
+}

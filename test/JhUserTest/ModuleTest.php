@@ -2,7 +2,7 @@
 
 namespace JhUserTest;
 
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 use JhUser\Entity\User;
 use Zend\ServiceManager\ServiceManager;
 use JhUser\Module;
@@ -68,12 +68,12 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->sharedEventManager
              ->expects($this->at(0))
              ->method('attach')
-             ->with('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', array($module, 'onRegister'));
+             ->with('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', [$module, 'onRegister']);
 
         $this->sharedEventManager
              ->expects($this->at(1))
              ->method('attach')
-             ->with('ZfcUser\Service\User', 'register', array($module, 'onRegister'));
+             ->with('ZfcUser\Service\User', 'register', [$module, 'onRegister']);
 
         $module->onBootstrap($event);
     }
@@ -85,23 +85,20 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
         $serviceLocator     = new ServiceManager();
         $serviceLocator->setService('JhUser\ObjectManager', $mockObjectManager);
+
         $this->application->expects($this->any())
             ->method('getServiceManager')
             ->will($this->returnValue($serviceLocator));
 
-        $role = new Role();
+        $role = new HierarchicalRole();
         $roleRepository = $this->getMock('JhUser\Repository\RoleRepositoryInterface');
         $roleRepository
             ->expects($this->once())
-            ->method('findOneBy')
-            ->with(['roleId' => 'user'])
+            ->method('findByName')
+            ->with('user')
             ->will($this->returnValue($role));
 
-        $mockObjectManager
-            ->expects($this->once())
-            ->method('getRepository')
-            ->with('JhUser\Entity\Role')
-            ->will($this->returnValue($roleRepository));
+        $serviceLocator->setService('JhUser\Repository\RoleRepository', $roleRepository);
 
         $mockObjectManager
             ->expects($this->once())
@@ -136,7 +133,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->sharedEventManager   = $this->getMock('Zend\EventManager\SharedEventManagerInterface');
         $this->application          = $this->getMock('Zend\Mvc\Application', [], [], '', false);
 
-        if($addEventManager) {
+        if ($addEventManager) {
             $this->application->expects($this->any())
                 ->method('getEventManager')
                 ->will($this->returnValue($this->eventManager));

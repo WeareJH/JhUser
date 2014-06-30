@@ -12,7 +12,7 @@ use Zend\Console\Adapter\AdapterInterface as Console;
 /**
  * Class Module
  * @package JhUser
- * @author Aydin Hassan <aydin@wearejh.com>
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
 class Module implements
     ConfigProviderInterface,
@@ -30,10 +30,14 @@ class Module implements
         $events         = $application->getEventManager()->getSharedManager();
 
         //add roles to users created via HybridAuth
-        $events->attach('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', array($this, 'onRegister'));
+        $events->attach(
+            'ScnSocialAuth\Authentication\Adapter\HybridAuth',
+            'registerViaProvider',
+            [$this, 'onRegister']
+        );
 
         //add roles to users created via ZfcUser
-       $events->attach('ZfcUser\Service\User', 'register', array($this, 'onRegister'));
+        $events->attach('ZfcUser\Service\User', 'register', [$this, 'onRegister']);
     }
 
     /**
@@ -47,7 +51,7 @@ class Module implements
 
         $user       = $e->getParam('user');
         //TODO: Pull default role from config
-        $userRole   = $entityManager->getRepository('JhUser\Entity\Role')->findOneBy(array('roleId' => 'user'));
+        $userRole   = $sm->get('JhUser\Repository\RoleRepository')->findByName('user');
 
         $user->addRole($userRole);
         $entityManager->flush();
@@ -66,13 +70,13 @@ class Module implements
      */
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/../../src/' . __NAMESPACE__,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
     
     /**
@@ -80,13 +84,13 @@ class Module implements
      */
     public function getModuleDependencies()
     {
-        return array(
+        return [
             'DoctrineModule',
             'DoctrineORMModule',
             'ZfcUser',
             'ZfcUserDoctrineORM',
             'ScnSocialAuthDoctrineORM'
-        );
+        ];
     }
 
 
@@ -96,8 +100,8 @@ class Module implements
      */
     public function getConsoleUsage(Console $console)
     {
-        return array(
+        return [
             'set role <userEmail> <role>'   => 'Set a user\'s role',
-        );
+        ];
     }
 }

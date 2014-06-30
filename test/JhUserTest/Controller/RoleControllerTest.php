@@ -3,7 +3,7 @@
 namespace JhUserTest\Controller;
 
 use JhUser\Entity\User;
-use JhUser\Entity\Role;
+use JhUser\Entity\HierarchicalRole;
 use Zend\Console\Request;
 use Zend\Http\Request as HttpRequest;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
@@ -42,7 +42,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
 
         $this->configureMocks($email, $roleId);
 
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
 
         $this->assertResponseStatusCode(0);
         $this->assertModuleName('jhuser');
@@ -52,7 +52,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $this->assertMatchedRouteName('set-role');
 
         $this->assertCount(1, $this->user->getRoles());
-        $this->assertSame($this->user->getRoles()->first(), $this->role);
+        $this->assertSame($this->user->getRoles()[0], $this->role);
     }
 
     public function testUsersRoleCanBeModified()
@@ -61,12 +61,11 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $roleId = 'admin';
 
         $this->configureMocks($email, $roleId);
-        $role = new Role;
-        $role->setRoleId('user');
+        $role = new HierarchicalRole;
+        $role->setName('user');
         $this->user->addRole($role);
 
-
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
 
         $this->assertResponseStatusCode(0);
         $this->assertModuleName('jhuser');
@@ -76,7 +75,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $this->assertMatchedRouteName('set-role');
 
         $this->assertCount(1, $this->user->getRoles());
-        $this->assertSame($this->user->getRoles()->first(), $this->role);
+        $this->assertSame($this->user->getRoles()[1], $this->role);
     }
 
     public function configureMocks($userEmail, $roleId)
@@ -94,12 +93,12 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
             ->with($userEmail)
             ->will($this->returnValue($this->user));
 
-        $this->role = new Role();
-        $this->role->setRoleId($roleId);
+        $this->role = new HierarchicalRole();
+        $this->role->setName($roleId);
 
         $roleRepoMock
             ->expects($this->once())
-            ->method('findByRoleId')
+            ->method('findByName')
             ->with($roleId)
             ->will($this->returnValue($this->role));
 
@@ -135,7 +134,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
 
         $roleRepoMock
             ->expects($this->once())
-            ->method('findByRoleId')
+            ->method('findByName')
             ->with($roleId)
             ->will($this->returnValue(null));
 
@@ -147,7 +146,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $serviceManager->setService('JhUser\Repository\RoleRepository', $roleRepoMock);
         $serviceManager->setService('JhUser\ObjectManager', $objectManagerMock);
 
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
         $this->assertResponseStatusCode(1);
         $this->assertModuleName('jhuser');
         $this->assertControllerName('jhuser\controller\role');
@@ -172,7 +171,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
             ->with($email)
             ->will($this->returnValue(null));
 
-        $roleRepoMock->expects($this->never())->method('findByRoleId');
+        $roleRepoMock->expects($this->never())->method('findByName');
         $objectManagerMock->expects($this->never())->method('flush');
 
         $serviceManager = $this->getApplicationServiceLocator();
@@ -181,13 +180,16 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $serviceManager->setService('JhUser\Repository\RoleRepository', $roleRepoMock);
         $serviceManager->setService('JhUser\ObjectManager', $objectManagerMock);
 
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
         $this->assertResponseStatusCode(1);
         $this->assertModuleName('jhuser');
         $this->assertControllerName('jhuser\controller\role');
         $this->assertControllerClass('rolecontroller');
         $this->assertActionName('set-role');
         $this->assertMatchedRouteName('set-role');
-        $this->assertApplicationException('RuntimeException', sprintf('User with email: "%s" could not be found', $email));
+        $this->assertApplicationException(
+            'RuntimeException',
+            sprintf('User with email: "%s" could not be found', $email)
+        );
     }
 }
