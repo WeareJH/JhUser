@@ -68,12 +68,12 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->sharedEventManager
              ->expects($this->at(0))
              ->method('attach')
-             ->with('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', array($module, 'onRegister'));
+             ->with('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', [$module, 'onRegister']);
 
         $this->sharedEventManager
              ->expects($this->at(1))
              ->method('attach')
-             ->with('ZfcUser\Service\User', 'register', array($module, 'onRegister'));
+             ->with('ZfcUser\Service\User', 'register', [$module, 'onRegister']);
 
         $module->onBootstrap($event);
     }

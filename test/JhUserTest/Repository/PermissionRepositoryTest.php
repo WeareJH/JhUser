@@ -33,7 +33,7 @@ class PermissionRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testGetAllPermissions()
     {
         $permission = new SinglePermission();
-        $this->fixtureExectutor->execute(array($permission));
+        $this->fixtureExectutor->execute([$permission]);
 
         $this->assertCount(1, $this->repository->findAll());
     }
@@ -46,7 +46,7 @@ class PermissionRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testFindByPermissionNameReturnsPermissionIfExists()
     {
         $permission = new SinglePermission();
-        $this->fixtureExectutor->execute(array($permission));
+        $this->fixtureExectutor->execute([$permission]);
         $result = $this->repository->findByName((string) $permission->getPermission());
         $this->assertInstanceOf('JhUser\Entity\Permission', $result);
         $this->assertSame($permission->getPermission()->getId(), $result->getId());
@@ -55,14 +55,14 @@ class PermissionRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFindOneByReturnsNullIfNotExists()
     {
-        $this->assertNull($this->repository->findOneBy(array("name" => "super-admin")));
+        $this->assertNull($this->repository->findOneBy(["name" => "super-admin"]));
     }
 
     public function testFindOneByReturnsPermissionIfExists()
     {
         $permission = new SinglePermission();
-        $this->fixtureExectutor->execute(array($permission));
-        $result = $this->repository->findOneBy(array("name" => "delete"));
+        $this->fixtureExectutor->execute([$permission]);
+        $result = $this->repository->findOneBy(["name" => "delete"]);
         $this->assertInstanceOf('JhUser\Entity\Permission', $result);
         $this->assertSame($permission->getPermission()->getId(), $result->getId());
         $this->assertSame((string) $permission->getPermission(), (string) $result);
@@ -70,23 +70,23 @@ class PermissionRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFindByReturnsEmptyIfNonExist()
     {
-        $this->assertEmpty($this->repository->findBy(array('name' => 'admin')));
+        $this->assertEmpty($this->repository->findBy(['name' => 'admin']));
     }
 
     public function testFindByReturnsCollectionIfExist()
     {
-        $this->assertEmpty($this->repository->findBy(array('name' => 'user')));
+        $this->assertEmpty($this->repository->findBy(['name' => 'user']));
 
         $permission = new SinglePermission();
-        $this->fixtureExectutor->execute(array($permission));
-        $result = $this->repository->findBy(array("name" => (string) $permission->getPermission()));
+        $this->fixtureExectutor->execute([$permission]);
+        $result = $this->repository->findBy(["name" => (string) $permission->getPermission()]);
         $this->assertSame(1, count($result));
     }
 
     public function testFindById()
     {
         $permission = new SinglePermission();
-        $this->fixtureExectutor->execute(array($permission));
+        $this->fixtureExectutor->execute([$permission]);
         $result = $this->repository->find($permission->getPermission()->getId());
         $this->assertInstanceOf('JhUser\Entity\Permission', $result);
         $this->assertSame($permission->getPermission()->getId(), $result->getId());

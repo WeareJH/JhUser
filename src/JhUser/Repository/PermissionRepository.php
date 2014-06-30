@@ -32,7 +32,7 @@ class PermissionRepository implements PermissionRepositoryInterface, ObjectRepos
      */
     public function findByName($name)
     {
-        return $this->permissionRepository->findOneBy(array('name' => $name));
+        return $this->permissionRepository->findOneBy(['name' => $name]);
     }
 
     /**

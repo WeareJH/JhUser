@@ -268,12 +268,12 @@ class User implements UserInterface, IdentityInterface, JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array(
+        return [
             'id'    => $this->id,
             'name'  => $this->displayName,
             'email' => $this->email,
             'state' => $this->state,
-        );
+        ];
     }
 
     /**

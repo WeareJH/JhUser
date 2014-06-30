@@ -34,7 +34,7 @@ class RoleRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testGetAllRoles()
     {
         $role = new SingleRole();
-        $this->fixtureExectutor->execute(array($role));
+        $this->fixtureExectutor->execute([$role]);
 
         $this->assertCount(1, $this->repository->findAll());
     }
@@ -42,7 +42,7 @@ class RoleRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testGetAllRolesWithPagination()
     {
         $role = new SingleRole();
-        $this->fixtureExectutor->execute(array($role));
+        $this->fixtureExectutor->execute([$role]);
 
         $this->assertCount(1, $this->repository->findAll(true));
     }
@@ -55,7 +55,7 @@ class RoleRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testFindByRoleNameReturnsRoleIfExists()
     {
         $role = new SingleRole();
-        $this->fixtureExectutor->execute(array($role));
+        $this->fixtureExectutor->execute([$role]);
         $result = $this->repository->findByName($role->getRole()->getName());
         $this->assertInstanceOf('JhUser\Entity\HierarchicalRole', $result);
         $this->assertEquals($role->getRole()->getChildren()->toArray(), $result->getChildren()->toArray());
@@ -65,14 +65,14 @@ class RoleRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFindOneByReturnsNullIfNotExists()
     {
-        $this->assertNull($this->repository->findOneBy(array("name" => "super-admin")));
+        $this->assertNull($this->repository->findOneBy(["name" => "super-admin"]));
     }
 
     public function testFindOneByReturnsRoleIfExists()
     {
         $role = new SingleRole();
-        $this->fixtureExectutor->execute(array($role));
-        $result = $this->repository->findOneBy(array("name" => "admin"));
+        $this->fixtureExectutor->execute([$role]);
+        $result = $this->repository->findOneBy(["name" => "admin"]);
         $this->assertInstanceOf('JhUser\Entity\HierarchicalRole', $result);
         $this->assertEquals($role->getRole()->getChildren()->toArray(), $result->getChildren()->toArray());
         $this->assertSame($role->getRole()->getId(), $result->getId());
@@ -81,23 +81,23 @@ class RoleRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFindByReturnsEmptyIfNonExist()
     {
-        $this->assertEmpty($this->repository->findBy(array('name' => 'admin')));
+        $this->assertEmpty($this->repository->findBy(['name' => 'admin']));
     }
 
     public function testFindByReturnsCollectionIfExist()
     {
-        $this->assertEmpty($this->repository->findBy(array('name' => 'user')));
+        $this->assertEmpty($this->repository->findBy(['name' => 'user']));
 
         $roles = new MultipleRole();
-        $this->fixtureExectutor->execute(array($roles));
-        $result = $this->repository->findBy(array("name" => "manager"));
+        $this->fixtureExectutor->execute([$roles]);
+        $result = $this->repository->findBy(["name" => "manager"]);
         $this->assertSame(1, count($result));
     }
 
     public function testFindById()
     {
         $role = new SingleRole();
-        $this->fixtureExectutor->execute(array($role));
+        $this->fixtureExectutor->execute([$role]);
         $result = $this->repository->find($role->getRole()->getId());
         $this->assertInstanceOf('JhUser\Entity\HierarchicalRole', $result);
         $this->assertEquals($role->getRole()->getChildren()->toArray(), $result->getChildren()->toArray());

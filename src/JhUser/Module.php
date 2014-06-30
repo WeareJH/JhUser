@@ -30,10 +30,10 @@ class Module implements
         $events         = $application->getEventManager()->getSharedManager();
 
         //add roles to users created via HybridAuth
-        $events->attach('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', array($this, 'onRegister'));
+        $events->attach('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', [$this, 'onRegister']);
 
         //add roles to users created via ZfcUser
-       $events->attach('ZfcUser\Service\User', 'register', array($this, 'onRegister'));
+       $events->attach('ZfcUser\Service\User', 'register', [$this, 'onRegister']);
     }
 
     /**
@@ -66,13 +66,13 @@ class Module implements
      */
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/../../src/' . __NAMESPACE__,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
     
     /**
@@ -80,13 +80,13 @@ class Module implements
      */
     public function getModuleDependencies()
     {
-        return array(
+        return [
             'DoctrineModule',
             'DoctrineORMModule',
             'ZfcUser',
             'ZfcUserDoctrineORM',
             'ScnSocialAuthDoctrineORM'
-        );
+        ];
     }
 
 
@@ -96,8 +96,8 @@ class Module implements
      */
     public function getConsoleUsage(Console $console)
     {
-        return array(
+        return [
             'set role <userEmail> <role>'   => 'Set a user\'s role',
-        );
+        ];
     }
 }

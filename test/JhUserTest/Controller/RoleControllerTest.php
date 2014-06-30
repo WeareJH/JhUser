@@ -42,7 +42,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
 
         $this->configureMocks($email, $roleId);
 
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
 
         $this->assertResponseStatusCode(0);
         $this->assertModuleName('jhuser');
@@ -65,7 +65,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $role->setName('user');
         $this->user->addRole($role);
 
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
 
         $this->assertResponseStatusCode(0);
         $this->assertModuleName('jhuser');
@@ -146,7 +146,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $serviceManager->setService('JhUser\Repository\RoleRepository', $roleRepoMock);
         $serviceManager->setService('JhUser\ObjectManager', $objectManagerMock);
 
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
         $this->assertResponseStatusCode(1);
         $this->assertModuleName('jhuser');
         $this->assertControllerName('jhuser\controller\role');
@@ -180,7 +180,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $serviceManager->setService('JhUser\Repository\RoleRepository', $roleRepoMock);
         $serviceManager->setService('JhUser\ObjectManager', $objectManagerMock);
 
-        $this->dispatch(new Request(array('scriptname.php', "set role $email  $roleId")));
+        $this->dispatch(new Request(['scriptname.php', "set role $email  $roleId"]));
         $this->assertResponseStatusCode(1);
         $this->assertModuleName('jhuser');
         $this->assertControllerName('jhuser\controller\role');

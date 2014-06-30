@@ -15,11 +15,11 @@ class RoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactoryProcessesWithoutErrors()
     {
 
-        $services = array(
+        $services = [
             'JhUser\ObjectManager'                  => $this->getMock('Doctrine\Common\Persistence\ObjectManager'),
             'JhUser\Repository\UserRepository'      => $this->getMock('JhUser\Repository\UserRepositoryInterface'),
             'JhUser\Repository\RoleRepository'      => $this->getMock('JhUser\Repository\RoleRepositoryInterface'),
-        );
+        ];
 
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator

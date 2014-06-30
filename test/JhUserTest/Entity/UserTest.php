@@ -50,17 +50,17 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function setterGetterProvider()
     {
-        return array(
-            array('id'          , 1),
-            array('email'       , 'aydin@hotmail.co.uk'),
-            array('username'    , 'aydin'),
-            array('username'    , 'aydin'),
-            array('displayName' , 'Aydin'),
-            array('state'       , null),
-            array('createdAt'   , new \DateTime),
-            array('createdAt'   , new \DateTime),
-            array('password'    , 'password'),
-        );
+        return [
+            ['id'          , 1],
+            ['email'       , 'aydin@hotmail.co.uk'],
+            ['username'    , 'aydin'],
+            ['username'    , 'aydin'],
+            ['displayName' , 'Aydin'],
+            ['state'       , null],
+            ['createdAt'   , new \DateTime],
+            ['createdAt'   , new \DateTime],
+            ['password'    , 'password'],
+        ];
     }
 
     public function testAddRole()
@@ -122,12 +122,12 @@ class UserTest extends \PHPUnit_Framework_TestCase
             ->setState(null)
             ->setEmail("aydin@hotmail.co.uk");
 
-        $expected = array(
+        $expected = [
             'id'    => 1,
             'name'  => 'Aydin Hassan',
             'state' => null,
             'email' => 'aydin@hotmail.co.uk'
-        );
+        ];
 
         $this->assertEquals($expected, $user->jsonSerialize());
     }

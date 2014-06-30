@@ -49,9 +49,9 @@ class RoleTest extends \PHPUnit_Framework_TestCase
      */
     public function setterGetterProvider()
     {
-        return array(
-            array('name', 'admin'),
-        );
+        return [
+            ['name', 'admin'],
+        ];
     }
 
     public function testHasChildrenReturnsFalseWhenNoChildren()
