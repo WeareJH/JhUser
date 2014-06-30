@@ -30,10 +30,14 @@ class Module implements
         $events         = $application->getEventManager()->getSharedManager();
 
         //add roles to users created via HybridAuth
-        $events->attach('ScnSocialAuth\Authentication\Adapter\HybridAuth', 'registerViaProvider', [$this, 'onRegister']);
+        $events->attach(
+            'ScnSocialAuth\Authentication\Adapter\HybridAuth',
+            'registerViaProvider',
+            [$this, 'onRegister']
+        );
 
         //add roles to users created via ZfcUser
-       $events->attach('ZfcUser\Service\User', 'register', [$this, 'onRegister']);
+        $events->attach('ZfcUser\Service\User', 'register', [$this, 'onRegister']);
     }
 
     /**

@@ -39,4 +39,4 @@ class RoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new RoleControllerFactory();
         $this->assertInstanceOf('JhUser\Controller\RoleController', $factory->createService($controllerPluginManager));
     }
-} 
+}

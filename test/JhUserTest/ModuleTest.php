@@ -133,7 +133,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->sharedEventManager   = $this->getMock('Zend\EventManager\SharedEventManagerInterface');
         $this->application          = $this->getMock('Zend\Mvc\Application', [], [], '', false);
 
-        if($addEventManager) {
+        if ($addEventManager) {
             $this->application->expects($this->any())
                 ->method('getEventManager')
                 ->will($this->returnValue($this->eventManager));

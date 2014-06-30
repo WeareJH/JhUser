@@ -187,6 +187,9 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
         $this->assertControllerClass('rolecontroller');
         $this->assertActionName('set-role');
         $this->assertMatchedRouteName('set-role');
-        $this->assertApplicationException('RuntimeException', sprintf('User with email: "%s" could not be found', $email));
+        $this->assertApplicationException(
+            'RuntimeException',
+            sprintf('User with email: "%s" could not be found', $email)
+        );
     }
 }

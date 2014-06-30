@@ -34,7 +34,7 @@ class MultipleRole extends AbstractFixture
         $manager->persist($parent);
         $this->parent = $parent;
 
-        foreach(['admin', 'manager'] as $roleData) {
+        foreach (['admin', 'manager'] as $roleData) {
             $role = new HierarchicalRole;
             $role->setName($roleData);
 
@@ -61,4 +61,4 @@ class MultipleRole extends AbstractFixture
     {
         return $this->parent;
     }
-} 
+}

@@ -46,5 +46,4 @@ interface UserRepositoryInterface
      * @return User
      */
     public function findOneBy(array $criteria);
-
 }

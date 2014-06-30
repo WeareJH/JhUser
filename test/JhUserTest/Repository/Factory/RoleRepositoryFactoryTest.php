@@ -3,6 +3,7 @@
 namespace JhUserTest\Repository\Factory;
 
 use JhUser\Repository\Factory\RoleRepositoryFactory;
+
 /**
  * Class RoleRepositoryFactoryTest
  * @package JhUserTest\Repository\Factory

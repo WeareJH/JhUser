@@ -39,4 +39,4 @@ class SingleRole extends AbstractFixture
     {
         return $this->role;
     }
-} 
+}

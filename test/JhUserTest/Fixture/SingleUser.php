@@ -40,4 +40,4 @@ class SingleUser extends AbstractFixture
     {
         return $this->user;
     }
-} 
+}

@@ -35,4 +35,4 @@ class SinglePermission extends AbstractFixture
     {
         return $this->permission;
     }
-} 
+}
