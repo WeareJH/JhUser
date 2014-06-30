@@ -94,7 +94,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $roleRepository = $this->getMock('JhUser\Repository\RoleRepositoryInterface');
         $roleRepository
             ->expects($this->once())
-            ->method('findByRoleId')
+            ->method('findByName')
             ->with('user')
             ->will($this->returnValue($role));
 

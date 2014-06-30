@@ -44,12 +44,12 @@ class RoleRepository implements RoleRepositoryInterface, ObjectRepository
     }
 
     /**
-     * @param string $roleId
+     * @param string $roleName
      * @return Role|null
      */
-    public function findByRoleId($roleId)
+    public function findByName($roleName)
     {
-        return $this->roleRepository->findOneBy(array('name' => $roleId));
+        return $this->roleRepository->findOneBy(array('name' => $roleName));
     }
 
     /**

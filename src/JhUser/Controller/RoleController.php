@@ -13,7 +13,7 @@ use JhUser\Repository\RoleRepositoryInterface;
 /**
  * Class RoleController
  * @package JhUser\Controller
- * @author Aydin Hassan <aydin@wearejh.com>
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
 class RoleController extends AbstractActionController
 {
@@ -67,7 +67,7 @@ class RoleController extends AbstractActionController
             throw new \RuntimeException(sprintf('User with email: "%s" could not be found', $email));
         }
 
-        $newRole = $this->roleRepository->findByRoleId($roleId);
+        $newRole = $this->roleRepository->findByName($roleId);
 
         if (!$newRole) {
             throw new \RuntimeException(sprintf('Role: "%s" could not be found', $roleId));

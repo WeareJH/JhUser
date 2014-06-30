@@ -98,7 +98,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
 
         $roleRepoMock
             ->expects($this->once())
-            ->method('findByRoleId')
+            ->method('findByName')
             ->with($roleId)
             ->will($this->returnValue($this->role));
 
@@ -134,7 +134,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
 
         $roleRepoMock
             ->expects($this->once())
-            ->method('findByRoleId')
+            ->method('findByName')
             ->with($roleId)
             ->will($this->returnValue(null));
 
@@ -171,7 +171,7 @@ class RoleControllerTest extends AbstractConsoleControllerTestCase
             ->with($email)
             ->will($this->returnValue(null));
 
-        $roleRepoMock->expects($this->never())->method('findByRoleId');
+        $roleRepoMock->expects($this->never())->method('findByName');
         $objectManagerMock->expects($this->never())->method('flush');
 
         $serviceManager = $this->getApplicationServiceLocator();

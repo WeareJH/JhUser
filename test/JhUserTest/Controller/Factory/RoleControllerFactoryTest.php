@@ -8,7 +8,7 @@ use Zend\Mvc\Controller\PluginManager;
 /**
  * Class RoleControllerFactoryTest
  * @package JhTimeTest\Controller\Factory
- * @author Aydin Hassan <aydin@wearejh.com>
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
 class RoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {

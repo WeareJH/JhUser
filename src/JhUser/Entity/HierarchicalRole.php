@@ -102,12 +102,8 @@ class HierarchicalRole implements HierarchicalRoleInterface
     /**
      * {@inheritDoc}
      */
-    public function addPermission($permission)
+    public function addPermission(Permission $permission)
     {
-        if (is_string($permission)) {
-            $permission = new Permission($permission);
-        }
-
         $this->permissions[(string) $permission] = $permission;
     }
 

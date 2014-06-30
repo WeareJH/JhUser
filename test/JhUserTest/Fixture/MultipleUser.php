@@ -26,11 +26,11 @@ class MultipleUser extends AbstractFixture
 
         $data = [
             [
-                'email'       => 'aydin@hotmail.co.uk',
+                'email'       => 'aydin@wearejh.com',
                 'password'    => 'p$ssw0rd'
             ],
             [
-                'email'       => 'aydin@wearejh.com',
+                'email'       => 'aydin@hotmail.co.uk',
                 'password'    => 'p$ssw0rd'
             ],
         ];

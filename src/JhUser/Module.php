@@ -12,7 +12,7 @@ use Zend\Console\Adapter\AdapterInterface as Console;
 /**
  * Class Module
  * @package JhUser
- * @author Aydin Hassan <aydin@wearejh.com>
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
 class Module implements
     ConfigProviderInterface,
@@ -47,7 +47,7 @@ class Module implements
 
         $user       = $e->getParam('user');
         //TODO: Pull default role from config
-        $userRole   = $sm->get('JhUser\Repository\RoleRepository')->findByRoleId('user');
+        $userRole   = $sm->get('JhUser\Repository\RoleRepository')->findByName('user');
 
         $user->addRole($userRole);
         $entityManager->flush();

@@ -43,7 +43,7 @@ class PermissionRepository implements PermissionRepositoryInterface, ObjectRepos
      */
     public function findAll()
     {
-        $this->permissionRepository->findAll();
+        return $this->permissionRepository->findAll();
     }
 
     /**

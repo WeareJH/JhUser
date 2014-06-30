@@ -2,13 +2,14 @@
 
 namespace JhUserTest\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use JhUser\Entity\HierarchicalRole;
 use JhUser\Entity\User;
 
 /**
  * Class UserTest
  * @package JhUserTest\Entity
- * @author Aydin Hassan <aydin@wearejh.com>
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
  */
 class UserTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,7 +52,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array('id'          , 1),
-            array('email'       , 'aydin@wearejh.com'),
+            array('email'       , 'aydin@hotmail.co.uk'),
             array('username'    , 'aydin'),
             array('username'    , 'aydin'),
             array('displayName' , 'Aydin'),
@@ -77,6 +78,33 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertContains($role2, $user->getRoles());
     }
 
+    public function testSetRoles()
+    {
+        $user = new User;
+
+        $roles = new ArrayCollection([
+            new HierarchicalRole(),
+            new HierarchicalRole(),
+        ]);
+
+        $user->setRoles($roles);
+        $this->assertSame($roles->toArray(), $user->getRoles());
+    }
+
+    public function testSetRolesOverwritesExistingRoles()
+    {
+        $user = new User;
+        $user->addRole(new HierarchicalRole());
+
+        $roles = new ArrayCollection([
+            new HierarchicalRole(),
+            new HierarchicalRole(),
+        ]);
+
+        $user->setRoles($roles);
+        $this->assertSame($roles->toArray(), $user->getRoles());
+    }
+
     public function testPrePersistCreatedAtDateInstanceOfDateTime()
     {
         $user = new User;
@@ -92,13 +120,13 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setId(1)
             ->setDisplayName("Aydin Hassan")
             ->setState(null)
-            ->setEmail("aydin@wearejh.com");
+            ->setEmail("aydin@hotmail.co.uk");
 
         $expected = array(
             'id'    => 1,
             'name'  => 'Aydin Hassan',
             'state' => null,
-            'email' => 'aydin@wearejh.com'
+            'email' => 'aydin@hotmail.co.uk'
         );
 
         $this->assertEquals($expected, $user->jsonSerialize());

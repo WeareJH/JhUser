@@ -47,16 +47,16 @@ class RoleRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $this->repository->findAll(true));
     }
 
-    public function testFindByRoleIdReturnsNullIfNotExists()
+    public function testFindByRoleNameReturnsNullIfNotExists()
     {
-        $this->assertNull($this->repository->findByRoleId("super-admin"));
+        $this->assertNull($this->repository->findByName("super-admin"));
     }
 
-    public function testFindByRoleIdReturnsRoleIfExists()
+    public function testFindByRoleNameReturnsRoleIfExists()
     {
         $role = new SingleRole();
         $this->fixtureExectutor->execute(array($role));
-        $result = $this->repository->findByRoleId($role->getRole()->getName());
+        $result = $this->repository->findByName($role->getRole()->getName());
         $this->assertInstanceOf('JhUser\Entity\HierarchicalRole', $result);
         $this->assertEquals($role->getRole()->getChildren()->toArray(), $result->getChildren()->toArray());
         $this->assertSame($role->getRole()->getId(), $result->getId());

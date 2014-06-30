@@ -10,10 +10,10 @@ namespace JhUser\Repository;
 interface RoleRepositoryInterface
 {
     /**
-     * @param string $roleId
+     * @param string $roleName
      * @return \Rbac\Role\RoleInterface|null
      */
-    public function findByRoleId($roleId);
+    public function findByName($roleName);
 
     /**
      * @param array $criteria
