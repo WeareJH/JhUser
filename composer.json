@@ -16,7 +16,6 @@
         "doctrine/doctrine-orm-module": "0.*",
         "zf-commons/zfc-rbac": "2.4.*",
         "doctrine/data-fixtures": "1.0.*",
-        "zf-commons/zfc-user-doctrine-orm": "1.*",
         "socalnick/scn-social-auth-doctrine-orm": "1.4.0"
     },
     "require-dev": {
