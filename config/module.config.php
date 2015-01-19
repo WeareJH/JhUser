@@ -15,12 +15,6 @@ return [
             ],
         ],
     ],
-
-    'service_manager' => [
-        'aliases' => [
-            'Zend\Authentication\AuthenticationService' => 'zfcuser_auth_service'
-        ]
-    ],
  
     'zfcuser' => [
         // telling ZfcUser to use our own class
@@ -96,7 +90,8 @@ return [
             'JhUser\Repository\PermissionRepository'    => 'JhUser\Repository\Factory\PermissionRepositoryFactory',
         ],
         'aliases' => [
-            'JhUser\ObjectManager'             => 'Doctrine\ORM\EntityManager',
+            'JhUser\ObjectManager'                      => 'Doctrine\ORM\EntityManager',
+            'Zend\Authentication\AuthenticationService' => 'zfcuser_auth_service'
         ],
     ],
 ];
